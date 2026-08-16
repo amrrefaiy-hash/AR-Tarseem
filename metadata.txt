@@ -1,0 +1,99 @@
+[general]
+name=AR-Tarseem
+qgisMinimumVersion=3.22
+qgisMaximumVersion=3.99
+description=DEM-to-hydrograph watershed modelling: delineation, special delineation points with reservoir storage routing (modified Puls), SCS-CN/UH design hydrographs (CN from a raster or a single constant value), custom return periods, spatially-variable rainfall via Thiessen stations, four SCS storm types + custom hyetographs, adjustable Ia/S, ARF, Muskingum & Muskingum-Cunge routing, HEC-HMS .basin/.met/.pdata export. Pure NumPy + GDAL.
+version=1.0.0
+author=Ahmed M. Raslan, PhD & Amr R. Refaiy, PhD
+email=amrgaballa93@gmail.com
+
+about=Copyright (C) 2026 Ahmed M. Raslan, PhD & Amr R. Refaiy, PhD -
+ Water Engineering Experts. Released under the GNU General Public
+ License v3.0 or later (GPL-3.0-or-later).
+ .
+ AR-Tarseem is a complete DEM-to-hydrograph watershed modelling tool.
+ From a metric DEM and a pour-points layer it produces:
+   - Streams, Catchments, Longest Flow Paths (three Tc estimates),
+     optional sub-basins / sub-LFPs / reaches / junctions.
+   - Special Delineation Points: enforce junctions at dam locations
+     (snapped to the main flow path), split sub-catchments at the
+     points only or combined with the area-based subdivision, and
+     define any point as a Reservoir with modified-Puls storage
+     routing (elevation-volume curve + spillway/orifice structures,
+     or a storage-discharge table) - with inflow, outflow,
+     attenuation, storage and stage outputs.
+   - Design-storm hydrographs per catchment / sub-basin / junction /
+     reach: CSVs + interactive HTML charts, with an editable output
+     window so every hydrograph is complete (recession to zero).
+   - Curve Number from a raster (auto-aligned to the DEM) or a single
+     constant value; adjustable lambda = Ia/S (0.01-0.5).
+   - Rainfall: all four SCS/NRCS 24-h distributions or a custom
+     hyetograph CSV; custom return periods; Thiessen station
+     weighting; TRRL-UK / Riyadh / fixed Areal Reduction Factors.
+   - Reach routing: Lag, Muskingum, and variable-parameter
+     Muskingum-Cunge on a trapezoidal channel.
+   - HEC-HMS interchange: .basin (with true Reservoir elements),
+     per-return-period .met files, and a .pdata carrying the
+     reservoir Elevation-Storage tables (HEC-HMS 4.7-4.13 / WMS).
+   - Automatic QML styling. Uses ONLY libraries that ship with QGIS:
+     numpy, osgeo (GDAL), QGIS API.
+ .
+ The plugin can also write its network as an AR-Awdiya project file
+ (.json) for further interactive network editing and reporting.
+
+tracker=https://github.com/amrrefaiy-hash/AR-Tarseem/issues
+repository=https://github.com/amrrefaiy-hash/AR-Tarseem
+homepage=https://github.com/amrrefaiy-hash/AR-Tarseem
+
+category=Plugins
+icon=icon.png
+experimental=False
+deprecated=False
+hasProcessingProvider=no
+license=GPL-3.0-or-later
+
+tags=hydrology,watershed,delineation,reservoirs,dams,DEM,catchment,subbasin,SCS-CN,unit hydrograph,kirpich,nrcs,muskingum,muskingum-cunge,ARF,hec-hms,basin export,scs storm types,custom hyetograph,ar-tarseem
+
+changelog=1.0.0 - First official release (July 2026)
+ AR-Tarseem graduates from its development series (v0.14-v0.24) into
+ its first official, production-ready release. Highlights of the full
+ feature set:
+ - Watershed delineation: pit filling, D8 flow direction and
+   accumulation, stream extraction, one catchment per pour point with
+   snapping to the main flow path, longest flow paths with segment
+   slopes and three time-of-concentration estimates (Kirpich
+   holistic, Kirpich 10-85, NRCS lag).
+ - Sub-catchment subdivision by target area, with reaches, junctions
+   and per-sub-basin longest flow paths.
+ - Special Delineation Points: enforce junctions at dam/structure
+   locations (snapped within the delineation snap radius); divide at
+   the points only or combined with the area-based subdivision;
+   junctions renamed with the point name and carrying the point's
+   attributes.
+ - Reservoir storage routing: any special point can be defined as a
+   reservoir (elevation-volume curve with spillway and orifice
+   outflow structures, or a direct storage-discharge table); the
+   combined inflow is routed by the modified-Puls method and the
+   attenuated outflow continues downstream. Outputs include inflow
+   and outflow peaks, attenuation, peak storage and peak stage, plus
+   full routing tables and interactive charts.
+ - Hydrology: SCS-CN losses (Curve Number from a raster or a constant
+   value; adjustable lambda = Ia/S), SCS Unit Hydrograph with
+   adjustable peak rate factor, four SCS 24-h storm types or custom
+   hyetographs, fully editable return periods, Thiessen rainfall
+   stations, and TRRL-UK / Riyadh / fixed areal reduction.
+ - Routing: Lag, Muskingum, variable-parameter Muskingum-Cunge.
+ - Background execution: the engine runs as a QGIS background task,
+   so QGIS stays fully responsive during a run, with a live progress
+   bar reporting every stage and catchment.
+ - Results: attribute tables with peaks and volumes per return
+   period; hydrograph CSVs and interactive HTML charts for every
+   catchment, sub-basin, reach and junction, with an editable output
+   window (tail length and cap) to guarantee complete hydrographs
+   that recede to zero flow.
+ - AR-Awdiya export: an "AR-Awdiya" tab writes the whole model as a
+   ready-to-run AR-Awdiya project (.json) - catchments, junctions,
+   reach routing, reservoirs and design storms included.
+ - Interoperability: HEC-HMS .basin export (versions 4.7-4.13,
+   including true Reservoir elements), .met files per return period,
+   and a .pdata file with the reservoir Elevation-Storage tables.
